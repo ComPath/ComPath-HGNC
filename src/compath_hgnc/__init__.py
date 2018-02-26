@@ -4,9 +4,9 @@
 
 from .manager import Manager
 
-__version__ = '0.0.5-dev'
+__version__ = '0.0.1'
 
-__title__ = 'comapth_hgnc'
+__title__ = 'compath_hgnc'
 __description__ = "A package that wraps PyHGNC to perform mappings between different gene identifiers"
 __url__ = 'https://github.com/ComPath/compath_hgnc'
 
