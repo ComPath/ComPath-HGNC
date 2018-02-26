@@ -16,6 +16,17 @@ class Manager(Bio2BELManager):
         """
         return self.session.query(HGNC).filter(HGNC.symbol.in_(gene_set)).all()
 
+    def get_all_hgnc_symbols(self):
+        """Gets all Gene symbols in gene families
+
+        :rtype: set[str]
+        """
+        return {
+            gene.symbol
+            for family in self.session.query(GeneFamily)
+            for gene in family.hgncs
+        }
+
     def get_families_gene_sets(self):
         """Gets all Gene symbols in gene families
 
