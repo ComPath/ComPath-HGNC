@@ -14,5 +14,4 @@ Installation
 
 Acknowledgements
 ----------------
-- This package heavily relies on Andrej Konotopez's package `PyHGNC <https://github.com/lekono/pyhgnc>`_
-and the `Bio2BEL HGNC <https://github.com/bio2bel/hgnc>`_.
+- This package heavily relies on Andrej Konotopez's package `PyHGNC <https://github.com/lekono/pyhgnc>`_ and the `Bio2BEL HGNC <https://github.com/bio2bel/hgnc>`_.
