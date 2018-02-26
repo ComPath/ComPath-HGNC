@@ -20,6 +20,9 @@ INSTALL_REQUIRES = [
 ENTRY_POINTS = {
     'compath': [
         'compath_hgnc = compath_hgnc'
+    ],
+    'console_scripts': [
+        'compath_hgnc = compath_hgnc.cli:main'
     ]
 }
 
