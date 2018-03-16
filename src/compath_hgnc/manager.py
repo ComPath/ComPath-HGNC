@@ -27,6 +27,35 @@ class Manager(Bio2BELManager):
             for gene in family.hgncs
         }
 
+    def query_pathway_by_name(self, query, limit=None):
+        """Returns all pathways having the query in their names
+
+        :param query: query string
+        :param Optional[int] limit: limit result query
+        :rtype: list[Pathway]
+        """
+
+        q = self.session.query(GeneFamily).filter(GeneFamily.family_name.contains(query))
+
+        if limit:
+            q = q.limit(limit)
+
+        return q.all()
+
+    def autocomplete_gene_families(self, q, limit=None):
+        """Wraps the query_pathway_by_name method to return autocompletion in compath
+
+        :param str q: query
+        :param int limit: limit of matches
+        :rtype: list[str]
+        :return:
+        """
+        return list({
+            gene_family.family_name
+            for gene_family in self.query_pathway_by_name(q, limit=limit if limit else 10)  # Limits the results returned to 10
+            if gene_family
+        })
+
     def get_families_gene_sets(self):
         """Gets all Gene symbols in gene families
 
