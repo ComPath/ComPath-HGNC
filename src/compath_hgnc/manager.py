@@ -16,8 +16,15 @@ class Manager(Bio2BELManager):
         """
         return self.session.query(HGNC).filter(HGNC.symbol.in_(gene_set)).all()
 
-    def get_all_hgnc_symbols(self):
+    def get_pathway_by_name(self, name):
         """Gets all Gene symbols in gene families
+
+        :rtype: Optional[GeneFamily]
+        """
+        return self.session.query(GeneFamily).filter(GeneFamily.family_name == name).one_or_none()
+
+    def get_all_hgnc_symbols(self):
+        """Gets Gene Family by name
 
         :rtype: set[str]
         """
@@ -32,7 +39,7 @@ class Manager(Bio2BELManager):
 
         :param query: query string
         :param Optional[int] limit: limit result query
-        :rtype: list[Pathway]
+        :rtype: list[GeneFamily]
         """
 
         q = self.session.query(GeneFamily).filter(GeneFamily.family_name.contains(query))
@@ -52,7 +59,8 @@ class Manager(Bio2BELManager):
         """
         return list({
             gene_family.family_name
-            for gene_family in self.query_pathway_by_name(q, limit=limit if limit else 10)  # Limits the results returned to 10
+            for gene_family in self.query_pathway_by_name(q, limit=limit if limit else 10)
+        # Limits the results returned to 10
             if gene_family
         })
 
