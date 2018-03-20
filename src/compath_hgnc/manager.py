@@ -3,15 +3,52 @@
 from bio2bel_hgnc.manager import Manager as Bio2BELManager
 from bio2bel_hgnc.models import GeneFamily, HGNC
 
+import itertools as itt
+import logging
+from collections import Counter
 
 class Manager(Bio2BELManager):
     """An minimized version of the Bio2BELManager manager adapted for ComPath"""
 
     def query_gene_set(self, gene_set):
-        """Returns HGNCs within the gene set
+        """Returns pathway counter dictionary
 
-        :param gene_set: set of gene symbols
-        :rtype: list[models.HGNC]
+        :param list[str] gene_set: gene set to be queried
+        :rtype: dict[str,dict]]
+        :return: Enriched pathways with mapped pathways/total
+        """
+        proteins = self._query_proteins_in_hgnc_list(gene_set)
+
+        pathways_lists = [
+            protein.get_pathways_ids()
+            for protein in proteins
+        ]
+
+        # Flat the pathways lists and applies Counter to get the number matches in every mapped pathway
+        pathway_counter = Counter(itt.chain(*pathways_lists))
+
+        enrichment_results = dict()
+
+        for hgnc_family, proteins_mapped in pathway_counter.items():
+            pathway = self.get_pathway_by_pathway_id(hgnc_family)
+
+            pathway_gene_set = pathway.get_gene_set()  # Pathway gene set
+
+            enrichment_results[pathway.hgnc_family] = {
+                "pathway_id": pathway.hgnc_family,
+                "pathway_name": pathway.name,
+                "mapped_proteins": proteins_mapped,
+                "pathway_size": len(pathway_gene_set),
+                "pathway_gene_set": pathway_gene_set,
+            }
+
+        return enrichment_results
+
+    def _query_proteins_in_hgnc_list(self, gene_set):
+        """Returns the proteins in the database within the gene set query
+
+        :param list[str] gene_set: hgnc symbol lists
+        :rtype: list[compath_neurommsig_ad.models.Protein]
         :return: list of proteins
         """
         return self.session.query(HGNC).filter(HGNC.symbol.in_(gene_set)).all()
