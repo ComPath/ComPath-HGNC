@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from bio2bel_hgnc.manager import Manager as Bio2BELManager
-from bio2bel_hgnc.models import GeneFamily, HGNC
+from bio2bel_hgnc.models import GeneFamily, HumanGene
 
 import itertools as itt
 import logging
@@ -51,7 +51,7 @@ class Manager(Bio2BELManager):
         :rtype: list[compath_neurommsig_ad.models.Protein]
         :return: list of proteins
         """
-        return self.session.query(HGNC).filter(HGNC.symbol.in_(gene_set)).all()
+        return self.session.query(HumanGene).filter(HumanGene.symbol.in_(gene_set)).all()
 
     def get_pathway_by_name(self, name):
         """Gets all Gene symbols in gene families
