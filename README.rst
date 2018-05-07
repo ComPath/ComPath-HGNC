@@ -1,5 +1,5 @@
-ComPath HGNC
-============
+ComPath HGNC |build| |coverage| |documentation|
+===============================================
 This package support the mapping across different protein/gene identifiers.
 
 Citation
