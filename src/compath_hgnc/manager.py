@@ -1,13 +1,15 @@
 # -*- coding: utf-8 -*-
 
-from bio2bel_hgnc.manager import Manager as Bio2BELManager
-from bio2bel_hgnc.models import GeneFamily, HumanGene
+"""ComPath HGNC extension to Bio2BEL HGNC."""
 
 import itertools as itt
-import logging
 from collections import Counter
 
-class Manager(Bio2BELManager):
+from bio2bel_hgnc.models import GeneFamily, HumanGene
+from compath_utils import CompathManager
+
+
+class Manager(CompathManager):
     """An minimized version of the Bio2BELManager manager adapted for ComPath"""
 
     def query_gene_set(self, gene_set):
@@ -97,7 +99,7 @@ class Manager(Bio2BELManager):
         return list({
             gene_family.family_name
             for gene_family in self.query_pathway_by_name(q, limit=limit if limit else 10)
-        # Limits the results returned to 10
+            # Limits the results returned to 10
             if gene_family
         })
 
