@@ -4,7 +4,7 @@
 
 from .manager import Manager
 
-__version__ = '0.0.1'
+__version__ = '0.0.2-dev'
 
 __title__ = 'compath_hgnc'
 __description__ = "A package that wraps PyHGNC to perform mappings between different gene identifiers"
