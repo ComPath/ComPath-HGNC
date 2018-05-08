@@ -5,12 +5,26 @@
 import itertools as itt
 from collections import Counter
 
+from bio2bel_hgnc.manager import Manager as HGNCManager
 from bio2bel_hgnc.models import GeneFamily, HumanGene
+from sqlalchemy.ext.declarative import declarative_base
+
 from compath_utils import CompathManager
+
+Base = declarative_base()
 
 
 class Manager(CompathManager):
     """An minimized version of the Bio2BELManager manager adapted for ComPath"""
+    module_name = 'compath_hgnc'
+    flask_admin_models = [GeneFamily, HumanGene]
+    pathway_model = GeneFamily
+    protein_model = HumanGene
+    pathway_model_identifier_column = GeneFamily.family_identifier
+
+    @property
+    def _base(self):
+        return Base
 
     def query_gene_set(self, gene_set):
         """Returns pathway counter dictionary
@@ -112,3 +126,8 @@ class Manager(CompathManager):
             family.family_name: {gene.symbol for gene in family.hgncs}
             for family in self.session.query(GeneFamily)
         }
+
+    def populate(self, url=None):
+        """Populates all tables"""
+        hgnc_manager = HGNCManager()
+        hgnc_manager.populate()
