@@ -6,16 +6,13 @@ import itertools as itt
 from collections import Counter
 
 from bio2bel_hgnc.manager import Manager as HGNCManager
-from bio2bel_hgnc.models import GeneFamily, HumanGene
-from sqlalchemy.ext.declarative import declarative_base
-
+from bio2bel_hgnc.models import Base, GeneFamily, HumanGene
 from compath_utils import CompathManager
 
-Base = declarative_base()
 
-
-class Manager(CompathManager):
+class Manager(HGNCManager, CompathManager):
     """An minimized version of the Bio2BELManager manager adapted for ComPath"""
+
     module_name = 'compath_hgnc'
     flask_admin_models = [GeneFamily, HumanGene]
     pathway_model = GeneFamily
@@ -126,8 +123,3 @@ class Manager(CompathManager):
             family.family_name: {gene.symbol for gene in family.hgncs}
             for family in self.session.query(GeneFamily)
         }
-
-    def populate(self, url=None):
-        """Populates all tables"""
-        hgnc_manager = HGNCManager()
-        hgnc_manager.populate()
