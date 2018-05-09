@@ -11,7 +11,7 @@ from compath_utils import CompathManager
 
 
 class Manager(HGNCManager, CompathManager):
-    """An minimized version of the Bio2BELManager manager adapted for ComPath"""
+    """An minimized version of the Bio2BELManager manager adapted for ComPath."""
 
     module_name = 'compath_hgnc'
     flask_admin_models = [GeneFamily, HumanGene]
@@ -24,7 +24,7 @@ class Manager(HGNCManager, CompathManager):
         return Base
 
     def query_gene_set(self, gene_set):
-        """Returns pathway counter dictionary
+        """Returns pathway counter dictionary.
 
         :param list[str] gene_set: gene set to be queried
         :rtype: dict[str,dict]]
@@ -58,7 +58,7 @@ class Manager(HGNCManager, CompathManager):
         return enrichment_results
 
     def _query_proteins_in_hgnc_list(self, gene_set):
-        """Returns the proteins in the database within the gene set query
+        """Return the proteins in the database within the gene set query
 
         :param list[str] gene_set: hgnc symbol lists
         :rtype: list[compath_neurommsig_ad.models.Protein]
@@ -67,14 +67,14 @@ class Manager(HGNCManager, CompathManager):
         return self.session.query(HumanGene).filter(HumanGene.symbol.in_(gene_set)).all()
 
     def get_pathway_by_name(self, name):
-        """Gets all Gene symbols in gene families
+        """Get a gene family by name.
 
         :rtype: Optional[GeneFamily]
         """
         return self.session.query(GeneFamily).filter(GeneFamily.family_name == name).one_or_none()
 
     def get_all_hgnc_symbols(self):
-        """Gets Gene Family by name
+        """Get all gene family names as a set.
 
         :rtype: set[str]
         """
@@ -85,13 +85,12 @@ class Manager(HGNCManager, CompathManager):
         }
 
     def query_pathway_by_name(self, query, limit=None):
-        """Returns all pathways having the query in their names
+        """Return all pathways having the query in their names.
 
         :param query: query string
         :param Optional[int] limit: limit result query
         :rtype: list[GeneFamily]
         """
-
         q = self.session.query(GeneFamily).filter(GeneFamily.family_name.contains(query))
 
         if limit:
@@ -100,12 +99,11 @@ class Manager(HGNCManager, CompathManager):
         return q.all()
 
     def autocomplete_gene_families(self, q, limit=None):
-        """Wraps the query_pathway_by_name method to return autocompletion in compath
+        """Wrap the query_pathway_by_name method to return autocompletion in ComPath.
 
         :param str q: query
         :param int limit: limit of matches
         :rtype: list[str]
-        :return:
         """
         return list({
             gene_family.family_name
@@ -115,9 +113,9 @@ class Manager(HGNCManager, CompathManager):
         })
 
     def get_families_gene_sets(self):
-        """Gets all Gene symbols in gene families
+        """Get all Gene symbols in gene families.
 
-        :rtype: dict[str,set]
+        :rtype: dict[str,set[str]]
         """
         return {
             family.family_name: {gene.symbol for gene in family.hgncs}

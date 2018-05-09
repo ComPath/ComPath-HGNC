@@ -4,6 +4,10 @@
 
 from .manager import Manager
 
+__all__ = [
+    'Manager',
+]
+
 __version__ = '0.0.2-dev'
 
 __title__ = 'compath_hgnc'

@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+"""Builds the CLI for ComPath HGNC."""
+
 import logging
 
 from .manager import Manager
