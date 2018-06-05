@@ -8,7 +8,7 @@ __all__ = [
     'Manager',
 ]
 
-__version__ = '0.0.2-dev'
+__version__ = '0.0.2'
 
 __title__ = 'compath_hgnc'
 __description__ = "A package that wraps PyHGNC to perform mappings between different gene identifiers"
