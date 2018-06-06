@@ -1,6 +1,6 @@
 ComPath HGNC |build| |coverage| |documentation|
 ===============================================
-This package support the mapping across different protein/gene identifiers.
+This package contains the gene family information that can be included in ComPath.
 
 Citation
 --------
