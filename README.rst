@@ -46,8 +46,8 @@ Acknowledgements
 - This package heavily relies on Andrej Konotopez's package `PyHGNC <https://github.com/lekono/pyhgnc>`_ and the
   `Bio2BEL HGNC <https://github.com/bio2bel/hgnc>`_.
 
-.. |build| image:: https://travis-ci.org/compath/compath_hgnc.svg?branch=master
-    :target: https://travis-ci.org/compath/compath_hgnc
+.. |build| image:: https://travis-ci.org/ComPath/compath_hgnc.svg?branch=master
+    :target: https://travis-ci.org/ComPath/compath_hgnc
     :alt: Build Status
 
 .. |coverage| image:: https://codecov.io/gh/compath/compath_hgnc/coverage.svg?branch=master
