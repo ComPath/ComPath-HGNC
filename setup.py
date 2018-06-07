@@ -24,9 +24,9 @@ CLASSIFIERS = [
 ]
 INSTALL_REQUIRES = [
     'pybel>=0.11.2',
-    'bio2bel>=0.0.9',
+    'bio2bel>=0.0.12',
     'compath_utils',
-    'bio2bel_hgnc>=0.0.6',
+    'bio2bel_hgnc>=0.0.7',
     'sqlalchemy',
     'click',
     'pandas',
