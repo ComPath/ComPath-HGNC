@@ -23,7 +23,7 @@ CLASSIFIERS = [
     'Topic :: Scientific/Engineering :: Bio-Informatics'
 ]
 INSTALL_REQUIRES = [
-    'pybel>=0.10.1',
+    'pybel>=0.11.2',
     'bio2bel>=0.0.9',
     'compath_utils',
     'bio2bel_hgnc>=0.0.6',
